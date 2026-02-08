@@ -1,18 +1,9 @@
-FROM denoland/deno:alpine-2.4.3
+FROM node:20-alpine
 
-# Add Node + npm so Vite/SvelteKit tooling can run if your Deno dev task uses it
-RUN apk add --no-cache nodejs npm
-
-COPY package.json deno.json .
-
-COPY package.json ./
-COPY deno.json* ./
-
-# Keep the tutorial step
-RUN DENO_FUTURE=1 deno install
-
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
 COPY . .
 
-RUN DENO_FUTURE=1 deno run -A npm:@sveltejs/kit sync
-
-CMD [ "run", "dev", "--host"]
+EXPOSE 5173
+CMD ["sh", "-lc", "npx svelte-kit sync && npm run dev -- --host 0.0.0.0"]
