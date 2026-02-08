@@ -8,4 +8,6 @@ RUN DENO_FUTURE=1 deno install
 
 COPY . .
 
+RUN DENO_FUTURE=1 deno run -A npm:svelte-kit sync
+
 CMD [ "run", "dev", "--host"]
