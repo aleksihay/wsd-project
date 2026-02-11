@@ -4,8 +4,7 @@ const sql = postgres();
 
 const create = async (comm) => {
     const result = await sql`
-        INSERT INTO communities
-        (name, description)
+        INSERT INTO communities (name, description)
         VALUES (${comm.name}, ${comm.description})
         RETURNING *;`;
     return result[0];

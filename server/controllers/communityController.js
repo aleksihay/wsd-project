@@ -1,4 +1,4 @@
-import * as communityRepository from "../repositories/communityRepository";
+import * as communityRepository from "../repositories/communityRepository.js";
 
 const create = async (c) => {
     const comm = await c.req.json();
@@ -28,7 +28,7 @@ const deleteOne = async (c) => {
     if (!Number.isInteger(id)) {
         return c.json({ error: "Invalid community id"});
     }
-    const deleteCommunity = communityRepository.deleteById(id);
+    const deleteCommunity = await communityRepository.deleteById(id);
     if (!deleteCommunity) {
         return c.json({ error: "Community not found"}, 404);
     }
