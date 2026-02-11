@@ -1,11 +1,9 @@
-FROM denoland/deno:alpine-2.4.3
+FROM node:20-alpine
 
 WORKDIR /app
-
-COPY package.json .
-
-RUN DENO_FUTURE=1 deno install
-
+COPY package*.json ./
+RUN npm install
 COPY . .
 
-CMD [ "run", "dev", "--host"]
+EXPOSE 5173
+CMD ["sh", "-lc", "npx svelte-kit sync && npm run dev -- --host 0.0.0.0"]
