@@ -1,4 +1,4 @@
-import * as taskRepository from './taskRepository.js';
+import * as taskRepository from '../repositories/taskRepository.js';
 
 const create = async (c) => {
     const id = Number(c.req.param("todoId"));

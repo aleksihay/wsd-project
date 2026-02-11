@@ -1,4 +1,4 @@
-import * as todoRepository from './todoRepository.js';
+import * as todoRepository from '../repositories/todoRepository.js';
 
 const create = async (c) => {
     const todo = await c.req.json();
