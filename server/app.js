@@ -3,6 +3,7 @@ import postgres from "postgres";
 import * as taskController from "./controllers/taskController.js";
 import * as todoController from "./controllers/todoController.js";
 import * as communityController from "./controllers/communityController.js";
+import * as postController from "./controllers/postController.js";
 const app = new Hono();
 const counts = new Map();
 const sql = postgres();
@@ -30,5 +31,10 @@ app.get("/api/communities", communityController.readAll);
 app.get("/api/communities/:communityId", communityController.readOne);
 app.post("/api/communities", communityController.create);
 app.delete("/api/communities/:communityId", communityController.deleteOne);
+
+app.get("/api/communities/:communityId/posts", postController.readAll);
+app.get("/api/communities/:communityId/posts/:postId", postController.readOne);
+app.post("/api/communities/:communityId/posts", postController.create);
+app.delete("/api/communities/:communityId/posts/:postId", postController.deleteOne);
 
 export default app;
