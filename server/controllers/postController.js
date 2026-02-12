@@ -9,7 +9,7 @@ const create = async (c) => {
     if (!post.title || !post.content) {
         return c.json({ error: "Missing required fields"}, 400);
     }
-    const newPost = postRepository.create(communityId, post);
+    const newPost = await postRepository.create(communityId, post);
     return c.json(newPost, 201);
 };
 const readAll = async (c) => {
@@ -17,7 +17,7 @@ const readAll = async (c) => {
     if (!Number.isInteger(communityId)) {
         return c.json({ error: "Invalid community id"}, 400);
     }
-    const posts = postRepository.findAll(communityId);
+    const posts = await postRepository.findAll(communityId);
     return c.json(posts, 200);
 };
 const readOne = async (c) => {

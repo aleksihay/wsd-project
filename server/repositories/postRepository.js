@@ -15,15 +15,22 @@ const findAll = async (communityId) => {
         WHERE community_id = ${communityId}`;
 };
 const findById = async (id) => {
-    return await sql`
+    const result = await sql`
         SELECT * FROM posts
         WHERE id = ${id}`;
+    if (result.length === 0) {
+        return undefined;
+    }
+    return result[0];
 };
 const deleteById = async (id) => {
-    const result = sql`
+    const result = await sql`
         DELETE FROM posts
         WHERE id = ${id}
         RETURNING *;`;
+    if (result.length === 0) {
+        return undefined;
+    }
     return result[0];
 };
 

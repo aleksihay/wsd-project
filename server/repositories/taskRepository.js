@@ -30,7 +30,9 @@ const findById = async (id) => {
   const result = await sql`
     SELECT * FROM todo_tasks
     WHERE id = ${id}`;
-
+  if (result.length === 0) {
+    return undefined;
+  }
   return result[0];
 };
 
