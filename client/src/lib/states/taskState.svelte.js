@@ -42,6 +42,10 @@ const useTaskState = () => {
             taskState[todoId].find((task) => task.id === id).is_done = true;
             pushToStorage();
         },
+        markAsUndone: (todoId, id) => {
+            taskState[todoId].find((task) => task.id === id).is_done = false;
+            pushToStorage();
+        },
         removeTask: (todoId, id) => {
             taskState[todoId] = (taskState[todoId] ?? []).filter(task => task.id != id);
             pushToStorage();

@@ -10,11 +10,13 @@
     {#each (taskState.tasks[todoId] ?? []) as task}
         <li>
             {#if !task.is_done}
-                <a href={`/todos/${todoId}/tasks/${task.id}`}>Task {task.id}</a>
+                <a href={`/todos/${todoId}/tasks/${task.id}`}>{task.description}</a>
+                <button onclick={() => taskState.markAsDone(todoId, task.id)}>Mark done</button>
             {:else}
-                <s>Task {task.id}</s>
+                <s>{task.description}</s>
+                <button onclick={() => taskState.markAsUndone(todoId, task.id)}>Mark not done</button>
             {/if}
-            <button onclick={() => taskState.markAsDone(todoId, task.id)}>Mark done</button>
+           
             <button onclick={() => taskState.removeTask(todoId, task.id)}>Remove</button>
         </li>
     {/each}

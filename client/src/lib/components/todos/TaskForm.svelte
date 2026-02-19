@@ -6,7 +6,11 @@
 
     const addTask = (e) => {
         e.preventDefault();
-        const task = Object.fromEntries(new FormData(e.target));
+        const data = Object.fromEntries(new FormData(e.target));
+        const task = {
+            description: data.description,
+            is_done: !!data.is_done,
+        };
         taskState.addTask(todoId, task);
         e.target.reset();
     };
@@ -21,6 +25,6 @@
         Is done
         <input id="is_done" name="is_done" type="checkbox" />
     </label>
-    <input type="submit" value="Add a task" />
+    <input type="submit" value="Add Task" />
 </form>
 
