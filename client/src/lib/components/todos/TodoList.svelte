@@ -1,7 +1,10 @@
 <script>
     import { onMount } from "svelte";
-    import { useTodoState } from "$lib/states/todoState.svelte";
+    import { useTodoState, initTodos } from "$lib/states/todoState.svelte";
     const todoState = useTodoState();
+    $effect(() => {
+        initTodos();
+    });
 </script>
 
 <h1>Todos</h1>

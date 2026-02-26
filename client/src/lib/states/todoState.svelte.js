@@ -1,48 +1,32 @@
 import { browser } from "$app/environment";
-
-const TODO_KEY = "todos";
+import * as todosApi from "$lib/apis/todosApi.js";
 
 let todoState = $state([]);
 
-
-if (browser) {
-    const stored = localStorage.getItem(TODO_KEY);
-
-    if (stored) {
-        todoState = JSON.parse(stored);
-    }
-    else {
-        localStorage.setItem(TODO_KEY, JSON.stringify(todoState));
-    }
-}
-
-const pushChanges = () => {
+const initTodos = async () => {
     if (browser) {
-        localStorage.setItem(TODO_KEY, JSON.stringify(todoState));
+        todoState = await todosApi.readTodos(); 
     }
 };
-
-
-
 
 const useTodoState = () => {
     return {
         get todos() {
             return todoState;
         },
-        getOne: (id) => {
-            return todoState.find(todo => todo.id == id);
+        addTodo: async (todo) => {
+            const newTodo = await todosApi.createTodo(todo);
+            todoState.push(newTodo);
         },
-        addTodo: (todo) => {
-            todo.id = todoState.length + 1;
-            todoState.push(todo);
-            pushChanges();
-        },
-        removeTodo: (id) => {
+        removeTodo: async (id) => {
             todoState = todoState.filter(todo => todo.id != id);
-            pushChanges();
-        }
+            await todosApi.deleteTodo(id);
+        },
+        editTodo: async (id, todo) => {
+            const newTodo = await todosApi.updateTodo(id, todo);
+            todoState = todoState.map(t => t.id === newTodo.id ? newTodo : t);
+        },
     };
 };
 
-export { useTodoState };
+export { useTodoState, initTodos };

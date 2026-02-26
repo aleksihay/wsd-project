@@ -6,8 +6,9 @@
     import TaskList from "./TaskList.svelte";
     let todoState = useTodoState();
     let taskState = useTaskState();
+    let todo = $derived(todoState.todos.find(t => t.id === todoId));
 </script>
 
-<h1>Todo {todoState.getOne(todoId)?.name ?? ""}</h1>
+<h1>Todo {todo?.name ?? "LOADING..."}</h1>
 <TaskForm todoId={todoId}/>
 <TaskList todoId={todoId}/>
