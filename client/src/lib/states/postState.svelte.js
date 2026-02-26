@@ -3,7 +3,6 @@ import { browser } from "$app/environment";
 let postState = $state({});
 
 const POST_KEY = "posts";
-
 if (browser) {
     const stored = localStorage.getItem(POST_KEY);
 
