@@ -6,7 +6,7 @@ const create = async (c) => {
         return c.json({ error: "Invalid todo id"}, 400);
     }
     const task = await c.req.json();
-    if (!task.description) {
+    if (!task.description || typeof task.is_done !== "boolean") {
         return c.json({ error: "Missing required fields"}, 400);
     }
     const newTask = await taskRepository.create(id, task);

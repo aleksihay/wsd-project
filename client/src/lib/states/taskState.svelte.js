@@ -1,26 +1,15 @@
 import { browser } from "$app/environment";
-
+import * as tasksApi from "$lib/apis/tasksApi.js";
 const TASK_KEY = "tasks";
 
 let taskState = $state({});
 
 
-if (browser) {
-    const stored = localStorage.getItem(TASK_KEY);
-
-    if (stored) {
-        taskState = JSON.parse(stored);
+const taskInit = async (todoId) => {
+    if (browser) {
+        taskState[todoId] = await tasksApi.readTasks(todoId);
     }
-    else {
-        localStorage.setItem(TASK_KEY, JSON.stringify(taskState));
-    }
-}
-
-const pushToStorage = () => {
-    if ( browser){
-        localStorage.setItem(TASK_KEY, JSON.stringify(taskState));
-    }
-}
+};
 
 const useTaskState = () => {
     return {
@@ -30,28 +19,35 @@ const useTaskState = () => {
         getOne: (todoId, id) => {
             return (taskState[todoId] ?? []).find(task => task.id == id);
         },
-        addTask: (id, task) => {
+        addTask: async (id, task) => {
             if (!taskState[id]) {
                 taskState[id] = [];
             }
-            task.id = taskState[id].length + 1;
-            taskState[id].push(task);
-            pushToStorage();
+            const newTask = await tasksApi.createTask(id, task);
+            taskState[id].push(newTask);
         },
-        markAsDone: (todoId, id) => {
-            taskState[todoId].find((task) => task.id === id).is_done = true;
-            pushToStorage();
+        markAsDone: async (todoId, id) => {
+            const current = taskState[todoId].find((task) => task.id === id);
+            if (current) {
+                current.is_done = true;
+                const newTask = await tasksApi.updateTask(todoId, id, current);
+                taskState[todoId] = taskState[todoId].map(t => t.id === newTask.id ? newTask : t);
+            }
         },
-        markAsUndone: (todoId, id) => {
-            taskState[todoId].find((task) => task.id === id).is_done = false;
-            pushToStorage();
+        markAsUndone: async (todoId, id) => {
+            const current = taskState[todoId].find((task) => task.id === id)
+            if (current) {
+                current.is_done = false;
+                const newTask = await tasksApi.updateTask(todoId, id, current);
+                taskState[todoId] = taskState[todoId].map(t => t.id === newTask.id ? newTask : t);
+            }
         },
-        removeTask: (todoId, id) => {
+        removeTask: async (todoId, id) => {
             taskState[todoId] = (taskState[todoId] ?? []).filter(task => task.id != id);
-            pushToStorage();
+            await tasksApi.deleteTask(todoId, id);
         }
 
     };
 };
 
-export { useTaskState }
+export { useTaskState, taskInit }

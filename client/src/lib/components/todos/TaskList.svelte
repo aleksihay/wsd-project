@@ -1,9 +1,12 @@
 <script>
     let { todoId } = $props();
-    import { useTaskState } from "$lib/states/taskState.svelte";
+    import { useTaskState, taskInit } from "$lib/states/taskState.svelte";
     import { useTodoState } from "$lib/states/todoState.svelte";
     let taskState = useTaskState();
     let todoState = useTodoState();
+    $effect(() => {
+        taskInit(todoId);
+    });
 </script>
 
 <ul>

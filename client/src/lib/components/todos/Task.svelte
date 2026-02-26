@@ -1,9 +1,11 @@
 <script>
     let { todoId, taskId } = $props();
-    import { useTodoState } from "$lib/states/todoState.svelte";
-    import { useTaskState } from "$lib/states/taskState.svelte";
+    import { useTodoState, initTodos } from "$lib/states/todoState.svelte";
+    import { useTaskState, taskInit } from "$lib/states/taskState.svelte";
     let taskState = useTaskState();
     let todoState = useTodoState();
+    let todo = $derived(todoState.todos.find(t => t.id === todoId));
+    let task = $derived(taskState.getOne(todoId, taskId));
 </script>
 
-<h1>Todo {todoState.getOne(todoId)?.name ?? ""}, task {taskState.getOne(todoId, taskId)?.description ?? ""}</h1>
+<h1>Todo {todo?.name ?? "Loading..."}, task {task?.description ?? "Loading..."}</h1>

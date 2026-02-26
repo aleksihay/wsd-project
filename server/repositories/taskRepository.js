@@ -4,8 +4,8 @@ const sql = postgres();
 
 const create = async (todoId, task) => {
   const result = await sql`
-    INSERT INTO todo_tasks (todo_id, description)
-    VALUES (${todoId}, ${task.description})
+    INSERT INTO todo_tasks (todo_id, description, is_done)
+    VALUES (${todoId}, ${task.description}, ${task.is_done})
     RETURNING *`;
 
   return result[0];
