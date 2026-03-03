@@ -6,8 +6,7 @@ import * as communityController from "./controllers/communityController.js";
 import * as postController from "./controllers/postController.js";
 import * as commentController from "./controllers/commentController.js";
 const app = new Hono();
-const counts = new Map();
-const sql = postgres();
+
 
 
 app.post("/", async (c) => {
