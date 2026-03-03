@@ -12,11 +12,11 @@
 <form onsubmit={addCommunity}>
     <label>
         Community name
-        <input id="name" name="name" type="text"/>
+        <input id="name" name="name" placeholder="Community name" type="text"/>
     </label>
     <label>
         Community description
-        <input id="description" name="description" type="text"/>
+        <input id="description" name="description" placeholder="Community description" type="text"/>
     </label>
     <input type="submit" value="Add community"/>
 </form>

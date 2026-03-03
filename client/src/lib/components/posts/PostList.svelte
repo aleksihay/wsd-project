@@ -1,7 +1,11 @@
 <script>
     import { usePostState } from "$lib/states/postState.svelte";
+    import { initPosts } from "$lib/states/postState.svelte";
     let { communityId } = $props();
     let postState = usePostState();
+    $effect(() => {
+        initPosts(communityId);
+    });
 </script>
 
 <ul>
