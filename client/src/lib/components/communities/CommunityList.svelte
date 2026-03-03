@@ -1,6 +1,9 @@
 <script>
-    import { useCommunityState } from "$lib/states/communityState.svelte";
+    import { useCommunityState, initCommunities } from "$lib/states/communityState.svelte";
     let communityState = useCommunityState();
+    $effect(() => {
+        initCommunities();
+    });
 </script>
 
 <ul>

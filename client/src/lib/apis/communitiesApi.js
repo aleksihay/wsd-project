@@ -1,7 +1,7 @@
 import { PUBLIC_API_URL } from "$env/static/public";
 
 const createCommunity = async (community) => {
-    const response = await fetch(`${PUBLIC_API_URL}/apicommunities`, {
+    const response = await fetch(`${PUBLIC_API_URL}/api/communities`, {
         headers: {"Content-Type": "application/json",},
         method: "POST",
         body: JSON.stringify(community),

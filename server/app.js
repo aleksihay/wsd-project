@@ -1,5 +1,5 @@
 import { Hono } from "@hono/hono";
-import postgres from "postgres";
+import { cors } from "@hono/hono/cors";
 import * as taskController from "./controllers/taskController.js";
 import * as todoController from "./controllers/todoController.js";
 import * as communityController from "./controllers/communityController.js";
@@ -7,7 +7,14 @@ import * as postController from "./controllers/postController.js";
 import * as commentController from "./controllers/commentController.js";
 const app = new Hono();
 
-
+app.use(
+  "/api/*",
+  cors({
+    origin: "http://localhost:5173",
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.post("/", async (c) => {
   const data = await c.req.json();

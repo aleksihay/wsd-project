@@ -1,5 +1,5 @@
 <script>
-    import AddCommunity from "$lib/components/communities/AddCommunity.svelte";
+    import AddCommunity from "$lib/components/communities/CommunityForm.svelte";
     import CommunityList from "$lib/components/communities/CommunityList.svelte";
 </script>
 
