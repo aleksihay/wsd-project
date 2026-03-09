@@ -1,10 +1,14 @@
 import { Hono } from "@hono/hono";
 import { cors } from "@hono/hono/cors";
+
 import * as taskController from "./controllers/taskController.js";
 import * as todoController from "./controllers/todoController.js";
 import * as communityController from "./controllers/communityController.js";
 import * as postController from "./controllers/postController.js";
 import * as commentController from "./controllers/commentController.js";
+
+import * as authController from "./controllers/authController.js";
+
 const app = new Hono();
 
 app.use(
@@ -21,6 +25,7 @@ app.post("/", async (c) => {
   const message = data.message ?? "Message missing";
   return c.json({ message });
 });
+
 //todo tasks
 app.post("/api/todos/:todoId/tasks", taskController.create);
 app.get("/api/todos/:todoId/tasks", taskController.readAll);
@@ -47,5 +52,11 @@ app.delete("/api/communities/:communityId/posts/:postId", postController.deleteO
 app.get("/api/communities/:communityId/posts/:postId/comments", commentController.readAll);
 app.post("/api/communities/:communityId/posts/:postId/comments", commentController.create);
 app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", commentController.deleteComment);
+
+//auth users
+app.post("/api/auth/register", authController.register);
+app.post("/api/auth/login", authController.login);
+
+
 
 export default app;
