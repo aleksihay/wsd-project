@@ -6,7 +6,7 @@ import * as todoController from "./controllers/todoController.js";
 import * as communityController from "./controllers/communityController.js";
 import * as postController from "./controllers/postController.js";
 import * as commentController from "./controllers/commentController.js";
-
+import * as middlewares from "./middlewares.js";
 import * as authController from "./controllers/authController.js";
 
 const app = new Hono();
@@ -57,6 +57,10 @@ app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", co
 app.post("/api/auth/register", authController.register);
 app.post("/api/auth/login", authController.login);
 
+app.use("/api/secret", middlewares.authenticate);
+app.get("/api/secret", (c) => {
+  return c.json({ message: "This is a secret message!" });
+});
 
 
 export default app;
