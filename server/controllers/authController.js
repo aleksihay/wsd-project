@@ -31,13 +31,16 @@ const login = async (c) => {
   if (!isValid) {
     return c.json({ error: "Invalid email or password" }, 401);
   }
-  const payload = { id: foundUser.id, email: foundUser.email };
+
+  const payload = { email: foundUser.email, id: foundUser.id };
   const token = await jwt.sign(payload, JWT_SECRET);
+
   return c.json({
-    message: `Welcome back ${foundUser.email}!`,
-    user: { id: foundUser.id, email: foundUser.email },
+    message: "Login successful",
+    user: { email: foundUser.email },
     token
   });
 };
+
 
 export { login, register };

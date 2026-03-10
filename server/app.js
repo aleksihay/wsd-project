@@ -8,6 +8,7 @@ import * as postController from "./controllers/postController.js";
 import * as commentController from "./controllers/commentController.js";
 import * as middlewares from "./middlewares.js";
 import * as authController from "./controllers/authController.js";
+import * as readingProgressController from "./readingProgressController.js";
 
 const app = new Hono();
 
@@ -62,5 +63,10 @@ app.get("/api/secret", (c) => {
   return c.json({ message: "This is a secret message!" });
 });
 
+app.use("/api/reading-progress/*", middlewares.authenticate);
+app.get("/api/reading-progress", readingProgressController.getUserProgress);
+app.get("/api/reading-progress/book/:bookId", readingProgressController.getUserProgressForBook);
+app.post("/api/reading-progress/book/:bookId", readingProgressController.createOrUpdateProgress);
+app.delete("/api/reading-progress/book/:bookId", readingProgressController.deleteProgress);
 
 export default app;
