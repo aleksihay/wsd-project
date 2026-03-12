@@ -14,7 +14,7 @@ const create = async (userId, todo) => {
 const deleteById = async (userId, todoId) => {
     const result = await sql`
         DELETE FROM todos
-        WHERE id = ${id} AND user_id = ${userId}
+        WHERE id = ${todoId} AND user_id = ${userId}
         RETURNING *;`;
     if (result.length === 0) {
         return undefined;
@@ -31,7 +31,7 @@ const findAll = async (userId) => {
 const findById = async (userId, todoId) => {
     const result = await sql`
         SELECT * FROM todos
-        WHERE id = ${id} AND user_id = ${userId}`;
+        WHERE id = ${todoId} AND user_id = ${userId}`;
     if (result.length === 0) {
         return undefined;
     }
@@ -42,7 +42,7 @@ const updateById = async (userId, todoId, todo) => {
     const result = await sql `
         UPDATE todos SET
             name = ${todo.name}
-        WHERE id = ${id} AND user_id = ${userId}
+        WHERE id = ${todoId} AND user_id = ${userId}
         RETURNING *;`;
     if (result[0] === 0) {
         return undefined;
