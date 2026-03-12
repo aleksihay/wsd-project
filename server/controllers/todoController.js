@@ -1,30 +1,34 @@
 import * as todoRepository from '../repositories/todoRepository.js';
 
 const create = async (c) => {
+    const user = c.get("user")
     const todo = await c.req.json();
     if (!todo.name) {
         return c.json({ "error": "Missing required fields"}, 400);
     }
-    const newTodo = await todoRepository.create(todo);
+    const newTodo = await todoRepository.create(user.id, todo);
     return c.json(newTodo, 201);
 };
 const readAll = async (c) => {
-    const todos = await todoRepository.findAll();
+    const user = c.get("user");
+    const todos = await todoRepository.findAll(user.id);
     return c.json(todos, 200);
 };
 const readOne = async (c) => {
-    const id = Number(c.req.param("todoId"));
+    const user = c.get("user");
+    const todoId = Number(c.req.param("todoId"));
     if (!Number.isInteger(id)) {
         return c.json({ "error": "Invalid todo id"}, 400);
     }
-    const todo = await todoRepository.findById(id);
+    const todo = await todoRepository.findById(user.id, todoId);
     if (!todo) {
         return c.json({ "error": "Todo not found"}, 404);
     }
     return c.json(todo, 200);
 };
 const update = async (c) => {
-    const id = Number(c.req.param("todoId"));
+    const user = c.get("user");
+    const todoId = Number(c.req.param("todoId"));
     if (!Number.isInteger(id)) {
         return c.json({ "error": "Invalid todo id"}, 400);
     }
@@ -32,18 +36,19 @@ const update = async (c) => {
     if (!todo.name || !todo.created_at) {
         return c.json({ "error": "Missing required fields"}, 400);
     }
-    const updateTodo = await todoRepository.updateById(id, todo);
+    const updateTodo = await todoRepository.updateById(userId, todoId, todo);
     if (!updateTodo) {
         return c.json({ "error": "Todo not found"}, 404);
     }
     return c.json(updateTodo, 200);
 };
 const deleteOne = async (c) => {
-    const id = Number(c.req.param("todoId"));
+    const user = c.get("user");
+    const todoId = Number(c.req.param("todoId"));
     if (!Number.isInteger(id)) {
         return c.json({ "error": "Invalid todo id"}, 400);
     }
-    const deleteTodo = await todoRepository.deleteById(id);
+    const deleteTodo = await todoRepository.deleteById(user.id, todoId);
     if (!deleteTodo) {
         return c.json({ "error": "Todo not found"}, 404);
     }

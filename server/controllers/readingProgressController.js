@@ -1,4 +1,4 @@
-import * as readingProgressRepository from "./readingProgressRepository.js";
+import * as readingProgressRepository from "../repositories/readingProgressRepository.js";
 
 const createOrUpdateProgress = async (c) => {
   const user = c.get("user");
