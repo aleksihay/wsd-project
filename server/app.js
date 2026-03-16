@@ -12,15 +12,6 @@ import * as readingProgressController from "./controllers/readingProgressControl
 
 const app = new Hono();
 
-app.use(
-  "/api/*",
-  cors({
-    origin: "http://localhost:5173",
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
 app.post("/", async (c) => {
   const data = await c.req.json();
   const message = data.message ?? "Message missing";
