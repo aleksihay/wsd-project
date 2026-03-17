@@ -16,7 +16,9 @@ const useTodoState = () => {
         },
         addTodo: async (todo) => {
             const newTodo = await todosApi.createTodo(todo);
-            todoState.push(newTodo);
+            if (newTodo.name) {
+                todoState.push(newTodo);
+            }
         },
         removeTodo: async (id) => {
             todoState = todoState.filter(todo => todo.id != id);

@@ -1,13 +1,19 @@
+import { error } from 'node:console';
 import * as todoRepository from '../repositories/todoRepository.js';
 
 const create = async (c) => {
-    const user = c.get("user")
-    const todo = await c.req.json();
-    if (!todo.name) {
-        return c.json({ "error": "Missing required fields"}, 400);
+    try {
+        const user = c.get("user")
+        const todo = await c.req.json();
+        if (!todo.name) {
+            return c.json({ "error": "Missing required fields"}, 400);
+        }
+        const newTodo = await todoRepository.create(user.id, todo);
+        return c.json(newTodo, 201);
+    } catch (err) {
+        console.error(err);
+        return c.json({ error: "Could not create a todo"}, 400);
     }
-    const newTodo = await todoRepository.create(user.id, todo);
-    return c.json(newTodo, 201);
 };
 const readAll = async (c) => {
     const user = c.get("user");
