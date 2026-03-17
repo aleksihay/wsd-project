@@ -17,15 +17,17 @@ const getAllUsers = async () => {
 };
 
 const getTodoTotal = async () => {
-    return await sql`
+    const result = await sql`
         SELECT COUNT(*) AS todo_count
         FROM todos
     `;
+    return Number(result[0].todo_count);
 };
 
 const getTaskTotal = async () => {
-    return await sql`
+    const result = await sql`
         SELECT COUNT(*) AS task_count
         FROM todo_tasks`;
+    return Number(result[0].task_count);
 };
 export { getAllUsers, getTodoTotal, getTaskTotal };

@@ -11,7 +11,6 @@ const register = async (c) => {
   try {
     user.password_hash = hash(user.password);
     newUser = await authRepository.create(user);
-    console.log(user.password_hash ?? "Something wrong")
   } catch (err) {
     //ignore if it fails
   }
