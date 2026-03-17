@@ -32,7 +32,7 @@ const authFetch = async (url, options = {}) => {
     throw new Error("Invalid or expired token");
   }
 
-  return response;
+  return await response.json();
 };
 
 export { authFetch };

@@ -11,6 +11,7 @@ const register = async (c) => {
   try {
     user.password_hash = hash(user.password);
     newUser = await authRepository.create(user);
+    console.log(user.password_hash ?? "Something wrong")
   } catch (err) {
     //ignore if it fails
   }
@@ -27,7 +28,7 @@ const login = async (c) => {
     return c.json({ error: "Invalid email or password" }, 401);
   }
 
-  const isValid = verify(user.password, foundUser.password_hash);
+  const isValid = await verify(user.password, foundUser.password_hash);
   if (!isValid) {
     return c.json({ error: "Invalid email or password" }, 401);
   }
