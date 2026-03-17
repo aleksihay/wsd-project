@@ -9,6 +9,7 @@ import * as commentController from "./controllers/commentController.js";
 import * as middlewares from "./middlewares.js";
 import * as authController from "./controllers/authController.js";
 import * as readingProgressController from "./controllers/readingProgressController.js";
+import * as userController from "./con/userController.js";
 
 const app = new Hono();
 
@@ -49,6 +50,11 @@ app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", co
 //auth users
 app.post("/api/auth/register", authController.register);
 app.post("/api/auth/login", authController.login);
+
+//Verify user permissions (user role)
+app.use("/api/admin/*", middlewares.authenticate, middlewares.requireAnyRole("ADMIN"));
+app.get("/api/admin/users", userController.getAllUsers);
+app.get("/api/admin/stats", userController.getStats);
 
 app.use("/api/secret", middlewares.authenticate);
 app.get("/api/secret", (c) => {

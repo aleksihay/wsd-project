@@ -7,13 +7,18 @@
 <header>
   {#if authState.user}
     <div>
-      <span>Hello, {authState.user.email}!</span>
-      <button onclick={() => authState.logout()}>Logout</button>
-	  <ul>
-    	<li><a href="/communities">Browse our communities</a></li>
-    	<li><a href="/todos">Go to your todos</a></li>
-    	<li><a href="/temperature">Temperature</a></li>
-	</ul>
+      <span>
+        Hello, {authState.user.email}!
+        {#if authState.user.roles?.length}
+          (Roles: {authState.user.roles.join(", ")})
+        {/if}
+        <button onclick={() => authState.logout()}>Logout</button>
+	      <ul>
+    	    <li><a href="/communities">Browse our communities</a></li>
+    	    <li><a href="/todos">Go to your todos</a></li>
+    	    <li><a href="/temperature">Temperature</a></li>
+	      </ul>
+      </span>
     </div>
   {:else}
     <ul>
