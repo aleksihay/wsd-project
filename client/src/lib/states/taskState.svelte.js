@@ -7,7 +7,12 @@ let taskState = $state({});
 
 const taskInit = async (todoId) => {
     if (browser) {
+        try{
         taskState[todoId] = await tasksApi.readTasks(todoId);
+        } catch(err){
+            console.error("Failed to load tasks:", err);
+            taskState[todoId] = [];
+        }
     }
 };
 

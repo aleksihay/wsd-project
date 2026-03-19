@@ -22,6 +22,7 @@ app.use(
 );
 
 //todo tasks
+app.use("/api/todos/:todoId/tasks/*", middlewares.authenticate);
 app.post("/api/todos/:todoId/tasks", taskController.create);
 app.get("/api/todos/:todoId/tasks", taskController.readAll);
 app.get("/api/todos/:todoId/tasks/:taskId", taskController.readOne);
