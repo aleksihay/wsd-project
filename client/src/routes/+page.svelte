@@ -7,8 +7,7 @@
 
   const fetchData = async () => {
     try {
-      const response = await authFetch(`${PUBLIC_API_URL}/api/secret`);
-      const data = await response.json();
+      const data = await authFetch(`${PUBLIC_API_URL}/api/secret`);
       message = data.message;
     } catch (error) {
       message = error.message;

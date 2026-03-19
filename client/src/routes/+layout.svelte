@@ -13,12 +13,17 @@
           (Roles: {authState.user.roles.join(", ")})
         {/if}
         <button onclick={() => authState.logout()}>Logout</button>
-	      <ul>
-    	    <li><a href="/communities">Browse our communities</a></li>
-    	    <li><a href="/todos">Go to your todos</a></li>
-    	    <li><a href="/temperature">Temperature</a></li>
-	      </ul>
-      </span>
+        </span>
+	    <ul>
+    	  <li><a href="/communities">Browse our communities</a></li>
+    	  <li><a href="/todos">Go to your todos</a></li>
+    	  <li><a href="/temperature">Temperature</a></li>
+	    </ul>
+      {#if authState.user.roles?.includes("ADMIN")}
+        <ul>
+          <li><a href="/admin">Admin</a></li>
+        </ul>
+      {/if}
     </div>
   {:else}
     <ul>

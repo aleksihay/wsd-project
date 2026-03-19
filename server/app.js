@@ -9,15 +9,17 @@ import * as commentController from "./controllers/commentController.js";
 import * as middlewares from "./middlewares.js";
 import * as authController from "./controllers/authController.js";
 import * as readingProgressController from "./controllers/readingProgressController.js";
-import * as userController from "./con/userController.js";
+import * as userController from "./controllers/userController.js";
 
 const app = new Hono();
 
-app.post("/", async (c) => {
-  const data = await c.req.json();
-  const message = data.message ?? "Message missing";
-  return c.json({ message });
-});
+app.use(
+  "/*",
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 //todo tasks
 app.post("/api/todos/:todoId/tasks", taskController.create);
