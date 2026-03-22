@@ -24,12 +24,12 @@ const login = async (c) => {
 
   const foundUser = await authRepository.findByEmail(user.email);
   if (!foundUser) {
-    return c.json({ error: "Invalid email or password" }, 401);
+    return c.json({ error: "Invalid email or password." }, 401);
   }
 
   const isValid = await verify(user.password, foundUser.password_hash);
   if (!isValid) {
-    return c.json({ error: "Invalid email or password" }, 401);
+    return c.json({ error: "Invalid email or password." }, 401);
   }
 
   const roles = await authRepository.getUserRoles(foundUser.id);
@@ -37,7 +37,7 @@ const login = async (c) => {
   const token = await jwt.sign(payload, JWT_SECRET);
 
   return c.json({
-    message: "Login successful",
+    message: "Login successful!",
     user: payload,
     token,
   });
