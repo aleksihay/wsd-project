@@ -1,6 +1,8 @@
 <script>
     import { useCommunityState, initCommunities } from "$lib/states/communityState.svelte";
+    import { useAuthState } from "$lib/states/authState.svelte";
     let communityState = useCommunityState();
+    let authState = useAuthState();
     $effect(() => {
         initCommunities();
     });
@@ -11,7 +13,9 @@
         <li>
             <h2><a href={`/communities/${com.id}`}>{com.name}</a></h2>
             <p>{com.description}</p>
-            <button onclick={() => communityState.removeCommunity(com.id)}>Remove</button>
+            {#if authState.user?.id == com.created_by}
+                <button onclick={() => communityState.removeCommunity(com.id)}>Remove</button>
+            {/if}
         </li>
     {/each}
 </ul>

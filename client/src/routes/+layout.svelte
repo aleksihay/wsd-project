@@ -15,7 +15,7 @@
         <button onclick={() => authState.logout()}>Logout</button>
         </span>
 	    <ul>
-    	  <li><a href="/communities">Browse our communities</a></li>
+    	  <li><a href="/communities">Go to communities</a></li>
     	  <li><a href="/todos">Go to your todos</a></li>
     	  <li><a href="/temperature">Temperature</a></li>
 	    </ul>

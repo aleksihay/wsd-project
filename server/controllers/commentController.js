@@ -3,6 +3,7 @@ import * as commentRepository from "../repositories/commentRepository.js";
 const create = async (c) => {
     const communityId = Number(c.req.param("communityId")); 
     const ppId = Number(c.req.param("postId"));
+    const user = c.get("user");
     if (!Number.isInteger(communityId) || !Number.isInteger(ppId)) {
         return c.json({ error: "Invalid community id or original post id"}, 400);
     }
@@ -10,7 +11,7 @@ const create = async (c) => {
     if (!comment.content) {
         return c.json({ error: "Missing fields"}, 400);
     }
-    const newComment = await commentRepository.create(communityId, ppId, comment);
+    const newComment = await commentRepository.create(user.id, communityId, ppId, comment);
     return c.json(newComment, 201);
 };
 const readAll = async (c) => {
@@ -25,11 +26,12 @@ const readAll = async (c) => {
 const deleteComment = async (c) => {
     const communityId = Number(c.req.param("communityId")); 
     const ppId = Number(c.req.param("postId"));
+    const user = c.get("user");
     const commentId = Number(c.req.param("commentId"));
     if (!Number.isInteger(communityId) || !Number.isInteger(ppId) || !Number.isInteger(commentId)) {
         return c.json({ error: "Invalid credentials"}, 400);
     }
-    const result = await commentRepository.deleteComment(communityId, ppId, commentId);
+    const result = await commentRepository.deleteComment(user.id, communityId, ppId, commentId);
     if (!result) {
         return c.json({ error: "Comment not found"}, 404);
     }

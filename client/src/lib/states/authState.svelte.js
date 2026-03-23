@@ -11,8 +11,13 @@ if (browser) {
   const storedUser = localStorage.getItem(USER_KEY);
   const storedToken = localStorage.getItem(TOKEN_KEY);
 
-  if (storedUser) {
-    user = JSON.parse(storedUser);
+  if (storedUser && storedUser !== "undefined" && storedUser !== "null") {
+    try {
+      user = JSON.parse(storedUser);
+    } catch {
+      localStorage.removeItem("user");
+      user = null;
+    }
   }
   if (storedToken) {
     token = storedToken;

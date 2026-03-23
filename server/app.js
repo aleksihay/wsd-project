@@ -44,12 +44,12 @@ app.delete("/api/communities/:communityId", middlewares.authenticate, communityC
 //community posts
 app.get("/api/communities/:communityId/posts", postController.readAll);
 app.get("/api/communities/:communityId/posts/:postId", postController.readOne);
-app.post("/api/communities/:communityId/posts", postController.create);
-app.delete("/api/communities/:communityId/posts/:postId", postController.deleteOne);
+app.post("/api/communities/:communityId/posts", middlewares.authenticate, postController.create);
+app.delete("/api/communities/:communityId/posts/:postId", middlewares.authenticate, postController.deleteOne);
 //post comments
 app.get("/api/communities/:communityId/posts/:postId/comments", commentController.readAll);
-app.post("/api/communities/:communityId/posts/:postId/comments", commentController.create);
-app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", commentController.deleteComment);
+app.post("/api/communities/:communityId/posts/:postId/comments", middlewares.authenticate, commentController.create);
+app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", middlewares.authenticate, commentController.deleteComment);
 
 //auth users
 app.post("/api/auth/register", authController.register);
