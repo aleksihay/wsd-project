@@ -36,10 +36,11 @@ app.post("/api/todos", todoController.create);
 app.put("/api/todos/:todoId", todoController.update);
 app.delete("/api/todos/:todoId", todoController.deleteOne);
 //communtities
+
 app.get("/api/communities", communityController.readAll);
 app.get("/api/communities/:communityId", communityController.readOne);
-app.post("/api/communities", communityController.create);
-app.delete("/api/communities/:communityId", communityController.deleteOne);
+app.post("/api/communities", middlewares.authenticate, communityController.create);
+app.delete("/api/communities/:communityId", middlewares.authenticate, communityController.deleteOne);
 //community posts
 app.get("/api/communities/:communityId/posts", postController.readAll);
 app.get("/api/communities/:communityId/posts/:postId", postController.readOne);
