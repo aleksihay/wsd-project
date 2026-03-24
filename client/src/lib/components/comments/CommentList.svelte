@@ -5,7 +5,7 @@
     let commentState = useCommentState();
     let authState = useAuthState();
     $effect(() => {
-        initComments(postId);
+        initComments(communityId, postId);
     });
 </script>
 
