@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+@import "@skeletonlabs/skeleton";
+@import "@skeletonlabs/skeleton-svelte";
+@import "@skeletonlabs/skeleton/themes/cerberus";
+
+html,
+body {
+  @apply h-full;
+}
+
+[data-theme='cerberus'] input[type="text"],
+[data-theme='cerberus'] input[type="email"],
+[data-theme='cerberus'] input[type="password"],
+[data-theme='cerberus'] input[type="number"],
+[data-theme='cerberus'] input[type="date"],
+[data-theme='cerberus'] textarea,
+[data-theme='cerberus'] select {
+  color: black;
+}
