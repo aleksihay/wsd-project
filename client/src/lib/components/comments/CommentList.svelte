@@ -1,9 +1,11 @@
 <script>
     import { useCommentState, initComments } from "$lib/states/commentState.svelte";
+    import { useAuthState } from "$lib/states/authState.svelte";
     let { communityId, postId } = $props();
     let commentState = useCommentState();
+    let authState = useAuthState();
     $effect(() => {
-        initComments(postId);
+        initComments(communityId, postId);
     });
 </script>
 
@@ -11,7 +13,9 @@
     {#each commentState.getOne(postId) as comment}
         <li>
             {comment.content}
-            <button onclick={() => commentState.deleteComment(communityId, postId, comment.id)}>Remove</button>
+            {#if authState.user?.id == comment.created_by}
+                <button onclick={() => commentState.deleteComment(communityId, postId, comment.id)}>Remove</button>
+            {/if}
         </li>
     {/each}
 </ul>
