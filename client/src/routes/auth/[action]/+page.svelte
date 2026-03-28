@@ -36,60 +36,68 @@
   };
 </script>
 
-<h2>
-  {page.params.action === "login" ? "Login" : "Register"}
-</h2>
+<div class="max-w-md mx-auto">
+  <h2 class="text-2xl font-bold text-primary-900 mb-6">
+    {page.params.action === "login" ? "Login" : "Register"}
+  </h2>
 
-{#if message}
-  <div>
-    <p>{message}</p>
-  </div>
-{/if}
+  {#if message}
+    <div class="card preset-filled-success p-4 mb-4">
+      <p>{message}</p>
+    </div>
+  {/if}
 
-{#if errorMessage}
-  <div>
-    <p>{errorMessage}</p>
-  </div>
-{/if}
+  {#if errorMessage}
+    <div class="card preset-filled-error p-4 mb-4">
+      <p>{errorMessage}</p>
+    </div>
+  {/if}
 
-<form onsubmit={handleForm}>
-  <label>
-    <span>Email</span>
-    <input
-      id="email"
-      name="email"
-      type="email"
-      placeholder="user@example.com"
-      required
-    />
-  </label>
-  <br />
-  <label>
-    <span>Password</span>
-    <input
-      id="password"
-      name="password"
-      type="password"
-      placeholder="Enter your password"
-      required
-    />
-  </label>
-  <br />
-  <button type="submit" disabled={isLoading}>
-    {isLoading
-      ? "Please wait..."
-      : page.params.action === "login"
-        ? "Login"
-        : "Register"}
-  </button>
-</form>
+  <form onsubmit={handleForm} class="space-y-4">
+    <label class="label">
+      <span class="label-text">Email</span>
+      <input
+        class="input"
+        id="email"
+        name="email"
+        type="email"
+        placeholder="user@example.com"
+        required
+      />
+    </label>
 
-{#if page.params.action === "login"}
-  <p>
-    Don't have an account? <a href="/auth/register">Register here</a>
+    <label class="label">
+      <span class="label-text">Password</span>
+      <input
+        class="input"
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Enter your password"
+        required
+      />
+    </label>
+
+    <button
+      class="w-full btn preset-filled-primary-500"
+      type="submit"
+      disabled={isLoading}
+    >
+      {isLoading
+        ? "Please wait..."
+        : page.params.action === "login"
+          ? "Login"
+          : "Register"}
+    </button>
+  </form>
+
+  <p class="text-center mt-6 text-sm">
+    {#if page.params.action === "login"}
+      Don't have an account?
+      <a class="anchor" href="/auth/register"> Register here </a>
+    {:else}
+      Already have an account?
+      <a class="anchor" href="/auth/login"> Login here </a>
+    {/if}
   </p>
-{:else}
-  <p>
-    Already have an account? <a href="/auth/login">Login here</a>
-  </p>
-{/if}
+</div>
