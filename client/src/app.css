@@ -11,8 +11,6 @@ body {
 }
 
 [data-theme='cerberus'] input[type="text"],
-[data-theme='cerberus'] input[type="email"],
-[data-theme='cerberus'] input[type="password"],
 [data-theme='cerberus'] input[type="number"],
 [data-theme='cerberus'] input[type="date"],
 [data-theme='cerberus'] textarea,
