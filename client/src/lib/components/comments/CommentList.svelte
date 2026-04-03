@@ -12,7 +12,12 @@
 <ul>
     {#each commentState.getOne(postId) as comment}
         <li>
-            {comment.content}
+            <p>{comment.content}</p>
+            <p>{comment.upvotes}|{comment.downvotes}</p>
+            {#if authState.user}
+            <button onclick={() => commentState.upvoteComment(communityId, postId, comment.id)}>Upvote</button>
+            <button onclick={() => commentState.downvoteComment(communityId, postId, comment.id)}>Downvote</button>
+            {/if}
             {#if authState.user?.id == comment.created_by}
                 <button onclick={() => commentState.deleteComment(communityId, postId, comment.id)}>Remove</button>
             {/if}

@@ -27,6 +27,20 @@ const useCommentState = () => {
         deleteComment: async (communityId, postId, commentId) => {
             commentState[postId] = commentState[postId].filter(comment => comment.id !== commentId);
             await commentsApi.deleteComment(communityId, postId, commentId);
+        },
+        upvoteComment: async (commmunityId, postId, commentId) => {
+            const votedComment = await commentsApi.upvoteComment(commmunityId, postId, commentId);
+            if (votedComment) {
+                commentState[postId] = commentState[postId].filter(comment => comment.id !== commentId);
+                commentState[postId].push(votedComment);
+            }
+        },
+        downvoteComment: async (commmunityId, postId, commentId) => {
+            const votedComment = await commentsApi.downvoteComment(commmunityId, postId);
+            if (votedComment) {
+                commentState[postId] = commentState[postId].filter(comment => comment.id !== commentId);
+                commentState[postId].push(votedComment);
+            }
         }
     };
 };

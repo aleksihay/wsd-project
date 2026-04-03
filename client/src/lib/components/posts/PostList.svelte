@@ -15,6 +15,11 @@
         <li>
             <a href={`/communities/${communityId}/posts/${post.id}`}>{post.title}</a>
             <p>{post.content}</p>
+            <p>{post.upvotes}|{post.downvotes}</p>
+            {#if authState.user}
+                <button onclick={() => postState.upvotePost(communityId, post.id)}>Upvote</button>
+                <button onclick={() => postState.downvotePost(communityId, post.id)}>Downvote</button>
+            {/if}
             {#if authState.user?.id == post.created_by}
                 <button onclick={() => postState.removePost(communityId, post.id)}>Remove</button>
             {/if}

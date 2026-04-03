@@ -45,4 +45,34 @@ const deleteOne = async (c) => {
     return c.json(deletePost, 200);
 };
 
-export {create, readAll, readOne, deleteOne};
+const addUpvotePost = async (c) => {
+    const id = Number(c.req.param("postId"));
+    const user = c.get("user");
+    if (!Number.isInteger(id)) {
+        return c.json({ error: "Invalid post id"}, 400);
+    }
+    await postRepository.upvotePost(user.id, id);
+    const voteData = await postRepository.findById(id);
+    if (!voteData) {
+        return c.json({ error: "Couldn't find data for post"}, 404);
+    }
+    return c.json(voteData, 200);
+};
+
+const addDownvotePost = async (c) => {
+    const id = Number(c.req.param("postId"));
+    const user = c.get("user");
+    if (!Number.isInteger(id)) {
+        return c.json({ error: "Invalid post id"}, 400);
+    }
+    await postRepository.downvotePost(user.id, id);
+    const voteData = await postRepository.getVotes(id);
+    if (!voteData) {
+        return c.json({ error: "Couldn't find data for post"}, 404);
+    }
+    return c.json(voteData, 200);
+};
+
+
+
+export {create, readAll, readOne, deleteOne, addDownvotePost, addUpvotePost};

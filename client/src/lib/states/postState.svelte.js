@@ -27,6 +27,20 @@ const usePostState = () => {
         removePost: async (commmunityId, postId) => {
             postState[commmunityId] = (postState[commmunityId] ?? []).filter(post => post.id != postId);
             await postsApi.deletePost(commmunityId, postId);
+        },
+        upvotePost: async (commmunityId, postId) => {
+            const votedPost = await postsApi.upvotePost(commmunityId, postId);
+            if (votedPost) {
+                postState[commmunityId] = (postState[commmunityId] ?? []).filter(post => post.id != postId);
+                postState[commmunityId].push(votedPost);
+            }
+        },
+        downvotePost: async (commmunityId, postId) => {
+            const votedPost = await postsApi.downvotePost(commmunityId, postId);
+            if (votedPost) {
+                postState[commmunityId] = (postState[commmunityId] ?? []).filter(post => post.id != postId);
+                postState[commmunityId].push(votedPost);
+            }
         }
 
     };

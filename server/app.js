@@ -10,7 +10,7 @@ import * as middlewares from "./middlewares.js";
 import * as authController from "./controllers/authController.js";
 import * as readingProgressController from "./controllers/readingProgressController.js";
 import * as userController from "./controllers/userController.js";
-import * as voteController from "./controllers/voteController.js";
+
 
 const app = new Hono();
 
@@ -52,10 +52,10 @@ app.get("/api/communities/:communityId/posts/:postId/comments", commentControlle
 app.post("/api/communities/:communityId/posts/:postId/comments", middlewares.authenticate, commentController.create);
 app.delete("/api/communities/:communityId/posts/:postId/comments/:commentId", middlewares.authenticate, commentController.deleteComment);
 //upvotes/downvotes
-app.post("api/communities/:commonityId/posts/:postId/upvote", middlewares.authenticate, voteController.addUpvotePost);
-app.post("api/communities/:commonityId/posts/:postId/downvote", middlewares.authenticate, voteController.addDownvotePost);
-app.post("api/communities/:commonityId/posts/:postId/comments/:commentId/upvote", middlewares.authenticate, voteController.addUpvoteComment);
-app.post("api/communities/:commonityId/posts/:postId/comments/:commentId/downvote", middlewares.authenticate, voteController.addDownvoteComment);
+app.post("api/communities/:commonityId/posts/:postId/upvote", middlewares.authenticate, postController.addUpvotePost);
+app.post("api/communities/:commonityId/posts/:postId/downvote", middlewares.authenticate, postController.addDownvotePost);
+app.post("api/communities/:commonityId/posts/:postId/comments/:commentId/upvote", middlewares.authenticate, commentController.addUpvoteComment);
+app.post("api/communities/:commonityId/posts/:postId/comments/:commentId/downvote", middlewares.authenticate, commentController.addDownvoteComment);
 
 
 //auth users

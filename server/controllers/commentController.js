@@ -1,5 +1,6 @@
 import * as commentRepository from "../repositories/commentRepository.js";
 
+
 const create = async (c) => {
     const communityId = Number(c.req.param("communityId")); 
     const ppId = Number(c.req.param("postId"));
@@ -38,4 +39,31 @@ const deleteComment = async (c) => {
     return c.json(result, 200);
 };
 
-export {create, readAll, deleteComment};
+const addDownvoteComment = async (c) => {
+    const id = Number(c.req.param("commentId"));
+    const user = c.get("user");
+    if (!Number.isInteger(id)) {
+        return c.json({ error: "Invalid post id"}, 400);
+    }
+    await commentRepository.downvotePost(user.id, id);
+    const voteData = await commentRepository.getVotes(id);
+    if (!voteData) {
+        return c.json({ error: "Couldn't find data for comment"}, 404);
+    }
+    return c.json(voteData, 200);
+};
+const addUpvoteComment = async (c) => {
+    const id = Number(c.req.param("commentId"));
+    const user = c.get("user");
+    if (!Number.isInteger(id)) {
+        return c.json({ error: "Invalid post id"}, 400);
+    }
+    await commentRepository.upvotePost(user.id, id);
+    const voteData = await commentRepository.getVotes(id);
+    if (!voteData) {
+        return c.json({ error: "Couldn't find data for comment"}, 404);
+    }
+    return c.json(voteData, 200);
+};
+
+export {create, readAll, deleteComment, addDownvoteComment, addUpvoteComment};
