@@ -66,7 +66,7 @@ const addDownvotePost = async (c) => {
         return c.json({ error: "Invalid post id"}, 400);
     }
     await postRepository.downvotePost(user.id, id);
-    const voteData = await postRepository.getVotes(id);
+    const voteData = await postRepository.findById(id);
     if (!voteData) {
         return c.json({ error: "Couldn't find data for post"}, 404);
     }

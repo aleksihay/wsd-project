@@ -25,6 +25,7 @@ const findAll = async (communityId) => {
         LEFT JOIN votes
             ON posts.id = votes.post_id
         WHERE posts.community_id = ${communityId}
+            AND posts.parent_post_id IS NULL
         GROUP BY
             posts.id,
             posts.title,

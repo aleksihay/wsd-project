@@ -31,7 +31,7 @@ const findAll = async (communityId, ppId) => {
             posts.title,
             posts.content,
             posts.community_id,
-            posts.created_at;
+            posts.created_at
         ORDER BY posts.created_at DESC;
             `;
 };
