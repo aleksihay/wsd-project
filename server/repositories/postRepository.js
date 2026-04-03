@@ -114,6 +114,39 @@ const deleteVote = async (userId, postId) => {
         WHERE user_id = ${userId} AND post_id = ${postId};`;
 };
 
+const getHomepageData = async () => {
+    const result = await sql`
+        SELECT
+            p.id,
+            p.title,
+            p.content,
+            p.community_id,
+            p.parent_post_id,
+            p.created_by,
+            p.created_at,
+            COUNT(*) FILTER (WHERE v.vote = 'upvote')::int AS upvotes,
+            COUNT(*) FILTER (WHERE v.vote = 'upvote')::int AS downvotes,
+            COUNT(DISTINCT c.id)::int AS comments
+        FROM posts p
+        LEFT JOIN votes v
+            ON v.post_id = p.id
+        LEFT JOIN posts c
+            ON c.parent_post_id = p.id
+        WHERE p.parent_post_id IS NULL
+            AND p.created_at >= NOW() - INTERVAL '3 days'
+        GROUP BY
+            p.id,
+            p.title,
+            p.content,
+            p.community_id,
+            p.parent_post_id,
+            p.created_at
+        ORDER BY p.created_at DESC;`
+    if (result.length === 0) {
+        return undefined;
+    }
+    return result;
+};
 
 
-export {create, findAll, findById, deleteById, upvotePost, downvotePost};
+export {create, findAll, findById, deleteById, upvotePost, downvotePost, getHomepageData};

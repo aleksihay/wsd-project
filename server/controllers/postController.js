@@ -1,3 +1,4 @@
+import { error } from "node:console";
 import * as postRepository from "../repositories/postRepository.js";
 
 const create = async (c) => {
@@ -73,6 +74,12 @@ const addDownvotePost = async (c) => {
     return c.json(voteData, 200);
 };
 
+const getHomepageData = async (c) => {
+    const homepageData = await postRepository.getHomepageData();
+    if (!homepageData) {
+        return c.json({ error: "Couldn't find the data"}, 404);
+    }
+    return c.json(homepageData, 200);
+};
 
-
-export {create, readAll, readOne, deleteOne, addDownvotePost, addUpvotePost};
+export {create, readAll, readOne, deleteOne, addDownvotePost, addUpvotePost, getHomepageData};

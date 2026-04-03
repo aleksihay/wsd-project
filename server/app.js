@@ -57,6 +57,7 @@ app.post("api/communities/:commonityId/posts/:postId/downvote", middlewares.auth
 app.post("api/communities/:commonityId/posts/:postId/comments/:commentId/upvote", middlewares.authenticate, commentController.addUpvoteComment);
 app.post("api/communities/:commonityId/posts/:postId/comments/:commentId/downvote", middlewares.authenticate, commentController.addDownvoteComment);
 
+app.get("api/homepage", postController.getHomepageData);
 
 //auth users
 app.post("/api/auth/register", authController.register);
