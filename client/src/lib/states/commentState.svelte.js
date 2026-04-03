@@ -36,7 +36,7 @@ const useCommentState = () => {
             }
         },
         downvoteComment: async (commmunityId, postId, commentId) => {
-            const votedComment = await commentsApi.downvoteComment(commmunityId, postId);
+            const votedComment = await commentsApi.downvoteComment(commmunityId, postId, commentId);
             if (votedComment) {
                 commentState[postId] = commentState[postId].filter(comment => comment.id !== commentId);
                 commentState[postId].push(votedComment);

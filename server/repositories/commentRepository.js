@@ -18,6 +18,7 @@ const findAll = async (communityId, ppId) => {
             posts.content,
             posts.community_id,
             posts.parent_post_id,
+            posts.created_by,
             COUNT(*) FILTER (WHERE votes.vote = 'upvote')::int AS upvotes,
             COUNT(*) FILTER (WHERE votes.vote = 'downvote')::int AS downvotes,
             posts.created_at
@@ -75,6 +76,7 @@ const getVotes = async (postId) => {
             posts.content,
             posts.community_id,
             posts.parent_post_id,
+            posts.created_by,
             COUNT(*) FILTER (WHERE votes.vote = 'upvote')::int AS upvotes,
             COUNT(*) FILTER (WHERE votes.vote = 'downvote')::int AS downvotes,
             posts.created_at
