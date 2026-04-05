@@ -25,11 +25,14 @@ const upvotePost = async (communityId, postId) => {
     return await authFetch(`${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/upvote`, {
         method: "POST",
     });
-}
+};
 const downvotePost = async (communityId, postId) => {
     return await authFetch(`${PUBLIC_API_URL}/api/communities/${communityId}/posts/${postId}/downvote`, {
         method: "POST",
     });
-}
+};
+const getHomepageData = async () => {
+    return await authFetch(`${PUBLIC_API_URL}/api/homepage`);
+};
 
-export { createPost, readPost, readPosts, deletePost, upvotePost, downvotePost };
+export { createPost, readPost, readPosts, deletePost, upvotePost, downvotePost, getHomepageData };

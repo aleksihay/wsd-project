@@ -10,10 +10,3 @@ body {
   @apply h-full;
 }
 
-[data-theme='cerberus'] input[type="text"],
-[data-theme='cerberus'] input[type="number"],
-[data-theme='cerberus'] input[type="date"],
-[data-theme='cerberus'] textarea,
-[data-theme='cerberus'] select {
-  color: black;
-}

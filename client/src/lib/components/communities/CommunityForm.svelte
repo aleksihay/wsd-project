@@ -11,16 +11,18 @@
     };
 </script>
 
+<div class="max-w-md mx-auto">
 {#if authState.user}
-    <form onsubmit={addCommunity}>
-        <label>
+    <form onsubmit={addCommunity} class="space-y-4">
+        <label class="label">
             Community name
-            <input id="name" name="name" placeholder="Community name" type="text"/>
+            <input class="input" id="name" name="name" placeholder="Community name" type="text"/>
         </label>
-        <label>
+        <label class="label">
             Community description
-            <input id="description" name="description" placeholder="Community description" type="text"/>
+            <input class="input" id="description" name="description" placeholder="Community description" type="text"/>
         </label>
-        <input type="submit" value="Add community"/>
+        <input class="input" type="submit" value="Add community"/>
     </form>
 {/if}
+</div>

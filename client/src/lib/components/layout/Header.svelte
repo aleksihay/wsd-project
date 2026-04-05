@@ -5,9 +5,8 @@
 
 <header class="flex items-center bg-primary-100 p-4 mb-6">
   <span class="text-lg text-primary-900">
-    Booksy
     {#if authState.user}
-      ({authState.user.email})
+      Hello, ({authState.user.email})!
       {#if authState.user.roles?.includes("ADMIN")}
             <ul class="flex space-x-4">
                 <li><a class="anchor" href="/admin">Admin</a></li>
@@ -15,7 +14,8 @@
         {/if}
     {/if}
         <ul>
-            <li><a class="anchor" href="/communities">Go to communities</a></li>
+            <li><a class="anchor" href="/communities">Communities</a></li>
+            <li><a class="anchor" href="/">Home</a></li>
         </ul>
   </span>
   <nav class="ml-4">

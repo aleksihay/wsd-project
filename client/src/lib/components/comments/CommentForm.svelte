@@ -12,12 +12,13 @@
         e.target.reset();
     };
 </script>
-
+<div class="max-w-md mx-auto">
 {#if authState.user}
-    <form onsubmit={addComment}>
-        <label>
-            <input type="text" placeholder="Comment content" name="content"/>
+    <form onsubmit={addComment} class="space-y-4">
+        <label class="label">
+            <input class="input" type="text" placeholder="Comment content" name="content"/>
         </label>
-        <input type="submit" value="Add comment"/>
+        <input class="inout" type="submit" value="Add comment"/>
     </form>
 {/if}
+</div>

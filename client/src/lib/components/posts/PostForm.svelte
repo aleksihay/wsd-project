@@ -14,15 +14,16 @@
         e.target.reset();
     };
 </script>
-
+<div class="max-w-md mx-auto">
 {#if authState.user}
-    <form onsubmit={addPost}>
-        <label>
-            <input type="text" placeholder="Post title" name="title"/>
+    <form onsubmit={addPost} class="space-y-4">
+        <label class="label">
+            <input class="input" type="text" placeholder="Post title" name="title"/>
         </label>
-        <label>
-            <input type="text" placeholder="Post content" name="content"/>
+        <label class="label">
+            <input class="input" type="text" placeholder="Post content" name="content"/>
         </label>
-        <input type="submit" value="Add post"/>
+        <input class="input" type="submit" value="Add post"/>
     </form>
 {/if}
+</div>
