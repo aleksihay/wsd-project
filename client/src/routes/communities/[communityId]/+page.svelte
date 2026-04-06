@@ -14,6 +14,7 @@
 </script>
 
 <Community communityId={communityId} />
-<PostList communityId={communityId} />
 <AddPost communityId={communityId} />
+<PostList communityId={communityId} />
+
 

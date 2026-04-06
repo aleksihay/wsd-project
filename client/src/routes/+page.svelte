@@ -17,9 +17,6 @@
   };
 </script>
 <HomePageList />
-{#if authState.user}
-    <button onclick={fetchData}>Fetch Protected Data</button>
-    <p>Message: {message}</p>
-{:else}
+{#if !authState.user}
     <p>Hello anonymous!</p>
 {/if}

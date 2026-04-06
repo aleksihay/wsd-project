@@ -22,6 +22,9 @@ app.use(
   }),
 );
 
+//For testing purposes
+app.get("/", (c) => c.json({ message: "Hello World!" }));
+
 //todo tasks
 app.use("/api/todos/:todoId/tasks/*", middlewares.authenticate);
 app.post("/api/todos/:todoId/tasks", taskController.create);

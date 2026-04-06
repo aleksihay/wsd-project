@@ -9,20 +9,21 @@
         initPosts(communityId);
     });
 </script>
-
+<div class="flex items-center p-4 mb-6">
 <ul>
     {#each postState.getOne(communityId) ?? []  as post}
         <li>
-            <a href={`/communities/${communityId}/posts/${post.id}`}>{post.title}</a>
-            <p>{post.content}</p>
-            <p>{post.upvotes}|{post.downvotes}</p>
+            <a class="anchor" href={`/communities/${communityId}/posts/${post.id}`}>{post.title}</a>
+            <p class="anchor">{post.content}</p>
+            <p class="anchor">{post.upvotes}|{post.downvotes}</p>
             {#if authState.user}
-                <button onclick={() => postState.upvotePost(communityId, post.id)}>Upvote</button>
-                <button onclick={() => postState.downvotePost(communityId, post.id)}>Downvote</button>
+                <button class="anchor button" onclick={() => postState.upvotePost(communityId, post.id)}>Upvote</button>
+                <button class="anchor button" onclick={() => postState.downvotePost(communityId, post.id)}>Downvote</button>
             {/if}
             {#if authState.user?.id == post.created_by}
-                <button onclick={() => postState.removePost(communityId, post.id)}>Remove</button>
+                <button class="anchor button" onclick={() => postState.removePost(communityId, post.id)}>Remove</button>
             {/if}
         </li>
     {/each}
 </ul>
+</div>

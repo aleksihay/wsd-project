@@ -14,3 +14,5 @@
     <p>{post.comments} comments</p>
     {/each}
 </ul>
+
+<!-- ↑ ↓ -->

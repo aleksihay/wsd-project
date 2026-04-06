@@ -125,7 +125,7 @@ const getHomepageData = async () => {
             p.created_by,
             p.created_at,
             COUNT(*) FILTER (WHERE v.vote = 'upvote')::int AS upvotes,
-            COUNT(*) FILTER (WHERE v.vote = 'upvote')::int AS downvotes,
+            COUNT(*) FILTER (WHERE v.vote = 'downvote')::int AS downvotes,
             COUNT(DISTINCT c.id)::int AS comments
         FROM posts p
         LEFT JOIN votes v

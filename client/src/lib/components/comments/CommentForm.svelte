@@ -18,7 +18,7 @@
         <label class="label">
             <input class="input" type="text" placeholder="Comment content" name="content"/>
         </label>
-        <input class="inout" type="submit" value="Add comment"/>
+        <input class="input" type="submit" value="Add comment"/>
     </form>
 {/if}
 </div>
