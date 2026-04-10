@@ -32,7 +32,8 @@ const downvotePost = async (communityId, postId) => {
     });
 };
 const getHomepageData = async () => {
-    return await authFetch(`${PUBLIC_API_URL}/api/homepage`);
+    const response =  await fetch(`${PUBLIC_API_URL}/api/homepage`);
+    return await response.json();
 };
 
 export { createPost, readPost, readPosts, deletePost, upvotePost, downvotePost, getHomepageData };

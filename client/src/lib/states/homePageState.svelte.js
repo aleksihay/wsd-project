@@ -1,7 +1,7 @@
 import { browser } from "$app/environment";
 import { getHomepageData } from "$lib/apis/postsApi";
 
-let posts = $state();
+let posts = $state([]);
 const postListInit = async () => {
     if (browser) {
         try {

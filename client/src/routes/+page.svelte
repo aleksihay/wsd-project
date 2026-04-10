@@ -7,14 +7,6 @@
   let authState = useAuthState(); 
   let message = $state(null);
 
-  const fetchData = async () => {
-    try {
-      const data = await authFetch(`${PUBLIC_API_URL}/api/secret`);
-      message = data.message;
-    } catch (error) {
-      message = error.message;
-    }
-  };
 </script>
 <HomePageList />
 {#if !authState.user}
